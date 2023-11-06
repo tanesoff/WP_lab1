@@ -1,0 +1,18 @@
+<head>
+<body>
+<header>
+   <h1 th:text="'Book title ' + ${book.getTitle()}"></h1>
+</header>
+<section>
+    <h2 th:text="'Genre ' + ${book.getGenre()}"></h2>
+    <h2 th:text="'Year ' + ${book.getYear()}"></h2>
+    <h2>Authors:</h2>
+    <ul>
+        <th:block th:each="author : ${book.getAuthors()}">
+            <li th:text="${author.getName()} + ' ' + ${author.getSurname()}"></li>
+        </th:block>
+    </ul>
+</section>
+
+</body>
+</head>
