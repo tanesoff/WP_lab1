@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mk.finki.ukim.mk.lab.service.impl.AuthorServiceImpl;
 import mk.finki.ukim.mk.lab.service.impl.BookServiceImpl;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -16,10 +17,12 @@ import java.io.IOException;
 @WebServlet(name = "bookServelet", urlPatterns = "/listBooks")
 public class BookListServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
+    private final AuthorServiceImpl authorService;
     private final BookServiceImpl bookService;
 
-    public BookListServlet(SpringTemplateEngine springTemplateEngine, BookServiceImpl bookService) {
+    public BookListServlet(SpringTemplateEngine springTemplateEngine, AuthorServiceImpl authorService, BookServiceImpl bookService) {
         this.springTemplateEngine = springTemplateEngine;
+        this.authorService = authorService;
         this.bookService = bookService;
     }
 
@@ -28,6 +31,7 @@ public class BookListServlet extends HttpServlet {
         IWebExchange webExchange = JakartaServletWebApplication.buildApplication(getServletContext()).buildExchange(req, resp);
         WebContext webContext = new WebContext(webExchange);
         webContext.setVariable("books", bookService.listBooks());
+        webContext.setVariable("authors", authorService.listAuthors());
         springTemplateEngine.process("listBooks.html", webContext, resp.getWriter());
     }
 

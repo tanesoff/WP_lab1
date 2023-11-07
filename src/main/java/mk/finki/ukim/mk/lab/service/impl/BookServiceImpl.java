@@ -58,4 +58,8 @@ public class BookServiceImpl implements AuthorService, BookService {
     public List<Author> getAllAuthorsThatAreNotInTheBook(String isbn){
         return authorRepository.findAll().stream().filter(author -> !bookRepository.findByIsbn(isbn).getAuthors().contains(author)).collect(Collectors.toList());
     }
+
+    public List<Book> getAllBooksByAuthor(Long id){
+        return bookRepository.findAll().stream().filter(book -> book.getAuthors().contains(authorRepository.findById(id).get())).collect(Collectors.toList());
+    }
 }

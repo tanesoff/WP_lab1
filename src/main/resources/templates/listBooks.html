@@ -29,6 +29,9 @@
   </form>
 <!--  <input type="radio" name="bookIsbn" value="2"> Book 2<br/>-->
 <!--  <input type="radio" name="bookIsbn" value="3"> Book 3 <br/>-->
+  <th:block th:each="author : ${authors}">
+    <a th:text="${author.getName() + ' ' + author.getSurname()}" th:href="@{/AuthorPage(id=${author.getId()})}"></a><br/>
+  </th:block>
 </main>
 </body>
 </html>
